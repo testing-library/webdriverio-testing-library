@@ -1,11 +1,11 @@
-const {setupBrowser, configure} = require('../src')
+import {setupBrowser, configure} from '../src';
 
 describe('configure', () => {
   beforeEach(() => {
     configure({testIdAttribute: 'data-automation-id'})
   })
   afterEach(() => {
-    configure(null)
+    configure({})
   })
 
   it('supports alternative testIdAttribute', async () => {

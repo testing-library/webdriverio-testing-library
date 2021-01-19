@@ -1,6 +1,14 @@
-const {queries: baseQueries} = require('@testing-library/dom')
+import {queries as baseQueries} from '@testing-library/dom'
 
-const {setupBrowser} = require('../src')
+import {setupBrowser} from '../src'
+import { WebdriverIOQueries } from '../src/types'
+
+declare global {
+  namespace WebdriverIO {
+    interface Browser extends WebdriverIOQueries {}
+    interface Element extends WebdriverIOQueries {}
+  }
+}
 
 describe('setupBrowser', () => {
   it('resolves with all queries', async () => {
@@ -36,15 +44,15 @@ describe('setupBrowser', () => {
   })
 
   it('adds queries as browser commands', async () => {
-    await setupBrowser(browser);
+    await setupBrowser(browser)
 
     expect(await browser.getByText('Page Heading')).toBeDefined()
   })
 
   it('adds queries as element commands scoped to element', async () => {
-    await setupBrowser(browser);
+    await setupBrowser(browser)
 
-    const nested = await browser.$('*[data-testid="nested"]');
+    const nested = await browser.$('*[data-testid="nested"]')
     const button = await nested.getByText('Button Text')
     await button.click()
 

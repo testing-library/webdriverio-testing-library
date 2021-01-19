@@ -18,7 +18,7 @@ exports.config = {
   // NPM script (see https://docs.npmjs.com/cli/run-script) then the current working
   // directory is where your package.json resides, so `wdio` will be called from there.
   //
-  specs: ['./test/**/*.e2e.js'],
+  specs: ['./test/**/*.e2e.ts'],
   // Patterns to exclude.
   exclude: [
     // 'path/to/excluded/files'
@@ -140,6 +140,7 @@ exports.config = {
   mochaOpts: {
     ui: 'bdd',
     timeout: 60000,
+    compiler: ['ts-node/register']
   },
   //
   // =====
@@ -183,8 +184,9 @@ exports.config = {
    * @param {Array.<String>} specs        List of spec file paths that are to be run
    * @param {Object}         browser      instance of created browser/device session
    */
-  // before: function (capabilities, specs) {
-  // },
+  before: function () {
+    require("@babel/register")({ extensions: ['.js', '.jsx', '.ts', '.tsx'] });
+  },
   /**
    * Runs before a WebdriverIO command gets executed.
    * @param {String} commandName hook command name

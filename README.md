@@ -138,6 +138,37 @@ it('lets you configure queries', async () => {
 })
 ```
 
+### Typescript
+
+All the above methods are fully typed. To use the Browser and Element commands
+added by `setupBrowser` the global `WebdriverIO` namespace will need to be
+modified. Add the following to a typescript module:
+
+```
+import {WebdriverIOQueries} from 'webdriverio-testing-library';
+
+declare global {
+  namespace WebdriverIO {
+    interface Browser extends WebdriverIOQueries {}
+    interface Element extends WebdriverIOQueries {}
+  }
+}
+```
+
+If you are using the `@wdio/sync` framework you will need to use the
+`WebdriverIOQueriesSync` type to extend the interfaces:
+
+```
+import {WebdriverIOQueriesSync} from 'webdriverio-testing-library';
+
+declare global {
+  namespace WebdriverIO {
+    interface Browser extends WebdriverIOQueriesSync {}
+    interface Element extends WebdriverIOQueriesSync {}
+  }
+}
+```
+
 ## Other Solutions
 
 I'm not aware of any, if you are please [make a pull request][prs] and add it

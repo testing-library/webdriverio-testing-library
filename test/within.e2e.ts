@@ -1,4 +1,4 @@
-const {within, setupBrowser} = require('../src')
+import {within, setupBrowser} from '../src';
 
 describe('within', () => {
   it('scopes queries to element', async () => {

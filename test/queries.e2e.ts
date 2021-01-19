@@ -1,11 +1,11 @@
-const {setupBrowser} = require('../src')
+import {setupBrowser} from '../src';
 
 describe('queries', () => {
   it('queryBy resolves with matching element', async () => {
     const {queryByText} = await setupBrowser(browser)
 
     const button = await queryByText('Unique Button Text')
-    expect(await button.getText()).toEqual('Unique Button Text')
+    expect(await button?.getText()).toEqual('Unique Button Text')
   })
 
   it('queryBy resolves with null when there are no matching elements', async () => {
