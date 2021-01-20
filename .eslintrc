@@ -1,9 +1,10 @@
 {
   "parser": "@typescript-eslint/parser",
   "extends": [
-    "plugin:@typescript-eslint/recommended",
-    "./node_modules/kcd-scripts/eslint.js"
+    "./node_modules/kcd-scripts/eslint.js",
+    "plugin:import/typescript"
   ],
+  "plugins": ["@typescript-eslint"],
   "rules": {
     "babel/new-cap": "off",
     "func-names": "off",
@@ -12,11 +13,12 @@
     "testing-library/no-await-sync-query": "off",
     "testing-library/no-dom-import": "off",
     "testing-library/prefer-screen-queries": "off",
-    "@typescript-eslint/no-var-requires": "off"
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["error"]
   },
   "overrides": [
     {
-      "files": ["wdio.conf.js", "*/**/*.e2e.js"],
+      "files": ["wdio.conf.js", "*/**/*.e2e.*"],
       "globals": {
         "browser": "readonly"
       }

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-implied-eval babel/no-invalid-this */
+/* eslint-disable babel/no-invalid-this, no-eval */
 
 import path from 'path'
 import fs from 'fs'
@@ -30,7 +30,7 @@ async function injectDOMTestingLibrary(container: Element) {
   await container.execute(DOM_TESTING_LIBRARY_UMD)
 
   if (_config) {
-    await container.execute(function (config) {
+    await container.execute(function (config: Config) {
       window.TestingLibraryDom.configure(config)
     }, _config)
   }
@@ -136,7 +136,7 @@ async function setupBrowser(browser: BrowserObject | MultiRemoteBrowserObject) {
     // add query to scoped to Element
     browser.addCommand(
       queryName,
-      function (...args) {
+      function(...args: any[]) {
         // @ts-expect-error
         return within(this as Element)[queryName](...args)
       },
