@@ -183,10 +183,10 @@ MIT
 [build-badge]: https://github.com/olivierwilkinson/webdriverio-testing-library/workflows/webdriverio-testing-library/badge.svg
 [build]: https://github.com/olivierwilkinson/webdriverio-testing-library/actions?query=branch%3Amaster+workflow%3Awebdriverio-testing-library
 [version-badge]: https://img.shields.io/npm/v/olivierwilkinson/webdriverio-testing-library.svg?style=flat-square
-[package]: https://www.npmjs.com/package/olivierwilkinson/webdriverio-testing-library
+[package]: https://www.npmjs.com/package/webdriverio-testing-library
 [downloads-badge]: https://img.shields.io/npm/dm/olivierwilkinson/webdriverio-testing-library.svg?style=flat-square
-[npmtrends]: http://www.npmtrends.com/olivierwilkinson/webdriverio-testing-library
-[license-badge]: https://img.shields.io/npm/l/olivierwilkinson/webdriverio-testing-library.svg?style=flat-square
+[npmtrends]: http://www.npmtrends.com/webdriverio-testing-library
+[license-badge]: https://img.shields.io/npm/l/webdriverio-testing-library.svg?style=flat-square
 [license]: https://github.com/olivierwilkinson/webdriverio-testing-library/blob/master/LICENSE
 [prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
 [prs]: http://makeapullrequest.com
