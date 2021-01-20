@@ -136,9 +136,9 @@ async function setupBrowser(browser: BrowserObject | MultiRemoteBrowserObject) {
     // add query to scoped to Element
     browser.addCommand(
       queryName,
-      function(...args: any[]) {
-        // @ts-expect-error
-        return within(this as Element)[queryName](...args)
+      function (...args: any[]) {
+        const element = this as Element
+        return within(element)[queryName as keyof typeof queries](...args)
       },
       true,
     )
