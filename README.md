@@ -60,16 +60,15 @@ npm install --save-dev webdriverio-testing-library
 
 ### setupBrowser
 
-Accepts a WebdriverIO BrowserObject and resolves with
-dom-testing-library queries modifed to return WebdriverIO Elements. All the
-queries are async, including queryBy and getBy variants, and are bound to
-`document.body` by default.
+Accepts a WebdriverIO BrowserObject and returns dom-testing-library queries
+modifed to return WebdriverIO Elements. All the queries are async, including
+queryBy and getBy variants, and are bound to `document.body` by default.
 
 ```
 const {setupBrowser} = require('webdriverio-testing-library');
 
 it('can click button', async () => {
-  const {getByText} = await setupBrowser(browser)
+  const {getByText} = setupBrowser(browser)
 
   const button = await getByText('Button Text');
   await button.click();
@@ -84,13 +83,13 @@ commands are scoped to the element.
 
 ```
 it('adds queries as browser commands', async () => {
-  await setupBrowser(browser);
+  setupBrowser(browser);
 
   expect(await browser.getByText('Page Heading')).toBeDefined()
 })
 
 it('adds queries as element commands scoped to element', async () => {
-  await setupBrowser(browser);
+  setupBrowser(browser);
 
   const nested = await browser.$('*[data-testid="nested"]');
   const button = await nested.getByText('Button Text')
@@ -132,7 +131,7 @@ afterEach(() => {
 })
 
 it('lets you configure queries', async () => {
-  const {getByTestId} = await setupBrowser(browser)
+  const {getByTestId} = setupBrowser(browser)
 
   expect(await getByTestId('testid-in-data-automation-id-attr')).toBeDefined()
 })

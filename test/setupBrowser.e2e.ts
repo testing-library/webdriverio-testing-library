@@ -1,7 +1,8 @@
+import path from 'path'
 import {queries as baseQueries} from '@testing-library/dom'
 
 import {setupBrowser} from '../src'
-import { WebdriverIOQueries } from '../src/types'
+import {WebdriverIOQueries} from '../src/types'
 
 declare global {
   namespace WebdriverIO {
@@ -11,8 +12,8 @@ declare global {
 }
 
 describe('setupBrowser', () => {
-  it('resolves with all queries', async () => {
-    const queries = await setupBrowser(browser)
+  it('resolves with all queries', () => {
+    const queries = setupBrowser(browser)
 
     const queryNames = Object.keys(queries)
     Object.keys(baseQueries).forEach((queryName) =>
@@ -21,13 +22,13 @@ describe('setupBrowser', () => {
   })
 
   it('binds queries to document body', async () => {
-    const {getByText} = await setupBrowser(browser)
+    const {getByText} = setupBrowser(browser)
 
     expect(await getByText('Page Heading')).toBeDefined()
   })
 
   it('still works after page navigation', async () => {
-    const {getByText} = await setupBrowser(browser)
+    const {getByText} = setupBrowser(browser)
 
     const goToPageTwoLink = await getByText('Go to Page 2')
     await goToPageTwoLink.click()
@@ -36,21 +37,32 @@ describe('setupBrowser', () => {
   })
 
   it('still works after refresh', async () => {
-    const {getByText} = await setupBrowser(browser)
+    const {getByText} = setupBrowser(browser)
 
     await browser.refresh()
 
     expect(await getByText('Page Heading')).toBeDefined()
   })
 
+  it('still works after session reload', async () => {
+    const {getByText} = setupBrowser(browser)
+
+    await browser.reloadSession()
+    await browser.url(
+      `file:///${path.join(__dirname, '../test-app/index.html')}`,
+    )
+
+    expect(await getByText('Page Heading')).toBeDefined()
+  })
+
   it('adds queries as browser commands', async () => {
-    await setupBrowser(browser)
+    setupBrowser(browser)
 
     expect(await browser.getByText('Page Heading')).toBeDefined()
   })
 
   it('adds queries as element commands scoped to element', async () => {
-    await setupBrowser(browser)
+    setupBrowser(browser)
 
     const nested = await browser.$('*[data-testid="nested"]')
     const button = await nested.getByText('Button Text')

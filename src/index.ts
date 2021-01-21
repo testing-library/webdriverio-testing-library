@@ -125,26 +125,35 @@ function within(element: Element) {
   ) as WebdriverIOQueries
 }
 
-async function setupBrowser(browser: BrowserObject | MultiRemoteBrowserObject) {
-  const body = await browser.$('body')
-  const queries = within(body)
+function setupBrowser(browser: BrowserObject | MultiRemoteBrowserObject) {
+  const queries: { [key: string]: any } = {};
 
-  Object.entries(queries).forEach(([queryName, query]) => {
+  Object.keys(baseQueries).forEach((key) => {
+    const queryName = key as keyof typeof baseQueries;
+
+    const query = async (...args: any[]) => {
+      const body = await browser.$('body');
+      return within(body)[queryName](...args);
+    }
+
+    // add query to response queries
+    queries[queryName] = query;
+
     // add query to BrowserObject
     browser.addCommand(queryName, query)
 
-    // add query to scoped to Element
+    // add query to Elements
     browser.addCommand(
       queryName,
       function (...args: any[]) {
         const element = this as Element
-        return within(element)[queryName as keyof typeof queries](...args)
+        return within(element)[queryName](...args)
       },
       true,
     )
   })
 
-  return queries
+  return queries as WebdriverIOQueries
 }
 
 function configure(config: Partial<Config>) {

@@ -11,7 +11,7 @@ describe('within', () => {
   })
 
   it('works with elements from GetBy query', async () => {
-    const {getByTestId} = await setupBrowser(browser)
+    const {getByTestId} = setupBrowser(browser)
     const nested = await getByTestId('nested')
 
     const button = await within(nested).getByText('Button Text')
@@ -21,7 +21,7 @@ describe('within', () => {
   })
 
   it('works with elements from AllBy query', async () => {
-    const {getAllByTestId} = await setupBrowser(browser)
+    const {getAllByTestId} = setupBrowser(browser)
 
     const nestedDivs = await getAllByTestId(/nested/)
     expect(nestedDivs).toHaveLength(2)
