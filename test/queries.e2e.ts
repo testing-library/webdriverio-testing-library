@@ -1,4 +1,4 @@
-import {setupBrowser} from '../src';
+import {setupBrowser} from '../src'
 
 describe('queries', () => {
   it('queryBy resolves with matching element', async () => {
@@ -108,10 +108,10 @@ describe('queries', () => {
     expect(await buttons[1].getText()).toEqual('Button Clicked')
   })
 
-  it('support Regular Expressions', async () => {
+  it('support Regular Expressions as matchers', async () => {
     const {getAllByText} = setupBrowser(browser)
 
-    const chans = await getAllByText(/Jackie Chan/)
+    const chans = await getAllByText(/jackie chan/i)
     expect(chans).toHaveLength(2)
   })
 
@@ -119,6 +119,15 @@ describe('queries', () => {
     const {getAllByText} = setupBrowser(browser)
 
     const chans = await getAllByText('Jackie Chan', {exact: false})
+    expect(chans).toHaveLength(2)
+  })
+
+  it('support Regular Expressions in options', async () => {
+    const {getAllByRole} = setupBrowser(browser)
+
+    const chans = await getAllByRole('button', {
+      name: /jackie chan/i,
+    })
     expect(chans).toHaveLength(2)
   })
 

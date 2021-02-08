@@ -19,6 +19,9 @@
   "overrides": [
     {
       "files": ["wdio.conf.js", "*/**/*.e2e.*"],
+      "rules": {
+        "max-lines-per-function": "off"
+      },
       "globals": {
         "browser": "readonly"
       }

@@ -36,31 +36,51 @@ async function injectDOMTestingLibrary(container: Element) {
   }
 }
 
-function serializeArgs(args: any[]) {
-  return args.map((arg) => {
-    if (arg instanceof RegExp) {
-      return {RegExp: arg.toString()}
-    }
-    if (typeof arg === 'undefined') {
-      return {Undefined: true}
-    }
-    return arg
-  })
+function serializeObject(object: Object): Object {
+  return Object.entries(object)
+    .map(([key, value]) => [key, serializeArg(value)])
+    .reduce((acc, [key, value]) => ({...acc, [key]: value}), {})
+}
+
+function serializeArg(arg: any) {
+  if (arg instanceof RegExp) {
+    return {RegExp: arg.toString()}
+  }
+  if (typeof arg === 'undefined') {
+    return {Undefined: true}
+  }
+  if (arg && typeof arg === 'object') {
+    return serializeObject(arg)
+  }
+  return arg
 }
 
 function executeQuery(
   [query, container, ...args]: [QueryName, HTMLElement, ...any[]],
   done: (result: any) => void,
 ) {
-  const [matcher, options, waitForOptions] = args.map((arg) => {
+  // @ts-ignore
+  function deserializeObject(object) {
+    return Object.entries(object)
+      .map(([key, value]) => [key, deserializeArg(value)])
+      .reduce((acc, [key, value]) => ({...acc, [key]: value}), {})
+  }
+
+  // @ts-ignore
+  function deserializeArg(arg) {
     if (arg && arg.RegExp) {
       return eval(arg.RegExp)
     }
     if (arg && arg.Undefined) {
       return undefined
     }
+    if (arg && typeof arg === 'object') {
+      return deserializeObject(arg)
+    }
     return arg
-  })
+  }
+
+  const [matcher, options, waitForOptions] = args.map(deserializeArg)
 
   Promise.resolve(
     window.TestingLibraryDom[query](
@@ -96,7 +116,7 @@ function createQuery(element: Element, queryName: string) {
     const result = await element.executeAsync<any[], any[]>(executeQuery, [
       queryName,
       element,
-      ...serializeArgs(args),
+      ...args.map(serializeArg),
     ])
 
     if (typeof result === 'string') {
@@ -126,18 +146,18 @@ function within(element: Element) {
 }
 
 function setupBrowser(browser: BrowserObject | MultiRemoteBrowserObject) {
-  const queries: { [key: string]: any } = {};
+  const queries: {[key: string]: any} = {}
 
   Object.keys(baseQueries).forEach((key) => {
-    const queryName = key as keyof typeof baseQueries;
+    const queryName = key as keyof typeof baseQueries
 
     const query = async (...args: any[]) => {
-      const body = await browser.$('body');
-      return within(body)[queryName](...args);
+      const body = await browser.$('body')
+      return within(body)[queryName](...args)
     }
 
     // add query to response queries
-    queries[queryName] = query;
+    queries[queryName] = query
 
     // add query to BrowserObject
     browser.addCommand(queryName, query)
