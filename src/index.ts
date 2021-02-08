@@ -27,7 +27,13 @@ const DOM_TESTING_LIBRARY_UMD = fs
 let _config: Partial<Config>
 
 async function injectDOMTestingLibrary(container: Element) {
-  await container.execute(DOM_TESTING_LIBRARY_UMD)
+  const shouldInject = await container.execute(function () {
+    return !window.TestingLibraryDom
+  })
+
+  if (shouldInject) {
+    await container.execute(DOM_TESTING_LIBRARY_UMD)
+  }
 
   if (_config) {
     await container.execute(function (config: Config) {
