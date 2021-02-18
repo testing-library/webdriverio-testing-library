@@ -3,6 +3,15 @@
 
 <p>WebdriverIO utilities that encourage good testing practices laid down by dom-testing-library.</p>
 
+<a href="https://www.joypixels.com/profiles/emoji/spider">
+  <img
+    height="80"
+    width="80"
+    alt="spider"
+    src="https://raw.githubusercontent.com/testing-library/webdriverio-testing-library/master/other/spider.png"
+  />
+</a>
+
 <p><strong>Based heavily on the great work on <a href="https://github.com/testing-library/nightwatch-testing-library">nightwatch-testing-library</a></strong></p>
 
 </div>
