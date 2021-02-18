@@ -60,7 +60,7 @@ This module is distributed via [npm][npm] which is bundled with [node][node] and
 should be installed as one of your project's `devDependencies`:
 
 ```
-npm install --save-dev webdriverio-testing-library
+npm install --save-dev @testing-library/webdriverio
 ```
 
 ## Usage
@@ -72,7 +72,7 @@ modifed to return WebdriverIO Elements. All the queries are async, including
 queryBy and getBy variants, and are bound to `document.body` by default.
 
 ```
-const {setupBrowser} = require('webdriverio-testing-library');
+const {setupBrowser} = require('@testing-library/webdriverio');
 
 it('can click button', async () => {
   const {getByText} = setupBrowser(browser)
@@ -111,7 +111,7 @@ it('adds queries as element commands scoped to element', async () => {
 Returns queries scoped to a WebdriverIO element
 
 ```
-const {within} = require('webdriverio-testing-library')
+const {within} = require('@testing-library/webdriverio')
 
 it('within scopes queries to element', async () => {
   const nested = await browser.$('*[data-testid="nested"]');
@@ -128,7 +128,7 @@ it('within scopes queries to element', async () => {
 Lets you pass a config to dom-testing-library
 
 ```
-const {configure} = require('webdriverio-testing-library')
+const {configure} = require('@testing-library/webdriverio')
 
 beforeEach(() => {
   configure({testIdAttribute: 'data-automation-id'})
@@ -151,7 +151,7 @@ added by `setupBrowser` the global `WebdriverIO` namespace will need to be
 modified. Add the following to a typescript module:
 
 ```
-import {WebdriverIOQueries} from 'webdriverio-testing-library';
+import {WebdriverIOQueries} from '@testing-library/webdriverio';
 
 declare global {
   namespace WebdriverIO {
@@ -165,7 +165,7 @@ If you are using the `@wdio/sync` framework you will need to use the
 `WebdriverIOQueriesSync` type to extend the interfaces:
 
 ```
-import {WebdriverIOQueriesSync} from 'webdriverio-testing-library';
+import {WebdriverIOQueriesSync} from '@testing-library/webdriverio';
 
 declare global {
   namespace WebdriverIO {
@@ -189,10 +189,10 @@ MIT
 [build-badge]: https://github.com/olivierwilkinson/webdriverio-testing-library/workflows/webdriverio-testing-library/badge.svg
 [build]: https://github.com/olivierwilkinson/webdriverio-testing-library/actions?query=branch%3Amaster+workflow%3Awebdriverio-testing-library
 [version-badge]: https://img.shields.io/npm/v/olivierwilkinson/webdriverio-testing-library.svg?style=flat-square
-[package]: https://www.npmjs.com/package/webdriverio-testing-library
-[downloads-badge]: https://img.shields.io/npm/dm/olivierwilkinson/webdriverio-testing-library.svg?style=flat-square
-[npmtrends]: http://www.npmtrends.com/webdriverio-testing-library
-[license-badge]: https://img.shields.io/npm/l/webdriverio-testing-library.svg?style=flat-square
+[package]: https://www.npmjs.com/package/@testing-library/webdriverio
+[downloads-badge]:https://img.shields.io/npm/dm/@testing-library/webdriverio.svg?style=flat-square
+[npmtrends]: http://www.npmtrends.com/@testing-library/webdriverio
+[license-badge]: https://img.shields.io/npm/l/@testing-library/webdriverio.svg?style=flat-square
 [license]: https://github.com/olivierwilkinson/webdriverio-testing-library/blob/master/LICENSE
 [prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
 [prs]: http://makeapullrequest.com
