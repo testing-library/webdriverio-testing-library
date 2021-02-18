@@ -1,8 +1,6 @@
 <div align="center">
 <h1>webdriverio-testing-library</h1>
 
-</a>
-
 <p>WebdriverIO utilities that encourage good testing practices laid down by dom-testing-library.</p>
 
 <p><strong>Based heavily on the great work on <a href="https://github.com/testing-library/nightwatch-testing-library">nightwatch-testing-library</a></strong></p>
