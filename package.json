@@ -45,7 +45,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/olivierwilkinson/webdriverio-testing-library.git"
+    "url": "https://github.com/testing-library/webdriverio-testing-library.git"
   },
   "release": {
     "branches": [

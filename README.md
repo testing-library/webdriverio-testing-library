@@ -186,18 +186,18 @@ MIT
 
 [npm]: https://www.npmjs.com/
 [node]: https://nodejs.org
-[build-badge]: https://github.com/olivierwilkinson/webdriverio-testing-library/workflows/webdriverio-testing-library/badge.svg
-[build]: https://github.com/olivierwilkinson/webdriverio-testing-library/actions?query=branch%3Amaster+workflow%3Awebdriverio-testing-library
+[build-badge]: https://github.com/testing-library/webdriverio-testing-library/workflows/webdriverio-testing-library/badge.svg
+[build]: https://github.com/testing-library/webdriverio-testing-library/actions?query=branch%3Amaster+workflow%3Awebdriverio-testing-library
 [version-badge]: https://img.shields.io/npm/v/olivierwilkinson/webdriverio-testing-library.svg?style=flat-square
 [package]: https://www.npmjs.com/package/@testing-library/webdriverio
 [downloads-badge]:https://img.shields.io/npm/dm/@testing-library/webdriverio.svg?style=flat-square
 [npmtrends]: http://www.npmtrends.com/@testing-library/webdriverio
 [license-badge]: https://img.shields.io/npm/l/@testing-library/webdriverio.svg?style=flat-square
-[license]: https://github.com/olivierwilkinson/webdriverio-testing-library/blob/master/LICENSE
+[license]: https://github.com/testing-library/webdriverio-testing-library/blob/master/LICENSE
 [prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
 [prs]: http://makeapullrequest.com
 [coc-badge]: https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square
-[coc]: https://github.com/olivierwilkinson/webdriverio-testing-library/blob/master/other/CODE_OF_CONDUCT.md
+[coc]: https://github.com/testing-library/webdriverio-testing-library/blob/master/other/CODE_OF_CONDUCT.md
 [dom-testing-library]: https://github.com/testing-library/dom-testing-library
 [webdriverio]: https://webdriver.io/
 [nightwatch-testing-library]: https://github.com/testing-library/nightwatch-testing-library
