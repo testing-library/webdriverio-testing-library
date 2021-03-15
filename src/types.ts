@@ -5,7 +5,14 @@ import {
 } from '@testing-library/dom'
 import {Element} from 'webdriverio'
 
-export type Config = Pick<BaseConfig, 'testIdAttribute'>
+export type Config = Pick<
+  BaseConfig,
+  | 'testIdAttribute'
+  | 'asyncUtilTimeout'
+  | 'computedStyleSupportsPseudoElements'
+  | 'defaultHidden'
+  | 'throwSuggestions'
+>
 
 export type WebdriverIOQueryReturnType<T> = T extends Promise<HTMLElement>
   ? Element

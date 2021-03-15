@@ -16,6 +16,10 @@
       section {
         padding: 10px;
       }
+
+      .pseudo-name::after {
+        content: 'Named by pseudo element';
+      }
     </style>
   </head>
 
@@ -80,6 +84,16 @@
         data-automation-id="image-with-random-alt-tag"
         src="data:image/png;base64,"
         onclick="this.style.border = '5px solid red'"
+      />
+      <button class="pseudo-name" />
+      <section aria-hidden="true" style="visibility: hidden;">
+        <button>
+          Hidden button
+        </button>
+      </section>
+      <button
+        data-testid="button-that-should-not-use-testid"
+        aria-label="Can be targeted by other queries"
       />
     </section>
     <section>
