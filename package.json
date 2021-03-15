@@ -35,7 +35,7 @@
     "@wdio/mocha-framework": "^6.11.0",
     "@wdio/spec-reporter": "^6.11.0",
     "@wdio/sync": "^6.11.0",
-    "chromedriver": "^87.0.5",
+    "chromedriver": "^89.0.0",
     "eslint": "^7.6.0",
     "kcd-scripts": "^5.0.0",
     "semantic-release": "^17.0.2",
