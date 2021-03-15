@@ -1,0 +1,8 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "types": ["node", "@wdio/sync", "@wdio/mocha-framework"]
+  },
+  "exclude": [],
+  "include": ["**/*.ts"]
+}

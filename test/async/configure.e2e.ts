@@ -1,4 +1,4 @@
-import {setupBrowser, configure} from '../src'
+import {setupBrowser, configure} from '../../src'
 
 describe('configure', () => {
   afterEach(() => {

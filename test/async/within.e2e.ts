@@ -1,4 +1,4 @@
-import {within, setupBrowser} from '../src';
+import {within, setupBrowser} from '../../src'
 
 describe('within', () => {
   it('scopes queries to element', async () => {

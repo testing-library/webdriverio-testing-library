@@ -3,7 +3,45 @@ import {
   BoundFunction as BoundFunctionBase,
   queries,
 } from '@testing-library/dom'
-import {Element} from 'webdriverio'
+
+declare global {
+  namespace WebdriverIO {
+    interface Element extends ElementBase {}
+  }
+}
+
+export type ElementBase = {
+  $(
+    selector: string | object,
+  ): WebdriverIO.Element | Promise<WebdriverIO.Element>
+
+  execute<T>(
+    script: string | ((...args: any[]) => T),
+    ...args: any[]
+  ): Promise<T>
+
+  execute<T>(
+    script: string | ((...args: any[]) => T),
+    ...args: any[]
+  ): T
+
+  executeAsync(script: string | ((...args: any[]) => void), ...args: any[]): any
+}
+
+export type BrowserBase = {
+  $(
+    selector: string | object,
+  ): WebdriverIO.Element | Promise<WebdriverIO.Element>
+
+  addCommand<T extends boolean>(
+    queryName: string,
+    commandFn: (
+      this: T extends true ? ElementBase : BrowserBase,
+      ...args: any[]
+    ) => void,
+    isElementCommand?: T,
+  ): any
+}
 
 export type Config = Pick<
   BaseConfig,
@@ -15,13 +53,13 @@ export type Config = Pick<
 >
 
 export type WebdriverIOQueryReturnType<T> = T extends Promise<HTMLElement>
-  ? Element
+  ? WebdriverIO.Element
   : T extends HTMLElement
-  ? Element
+  ? WebdriverIO.Element
   : T extends Promise<HTMLElement[]>
-  ? Element[]
+  ? WebdriverIO.Element[]
   : T extends HTMLElement[]
-  ? Element[]
+  ? WebdriverIO.Element[]
   : T extends null
   ? null
   : never

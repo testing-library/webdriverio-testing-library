@@ -1,15 +1,7 @@
 import path from 'path'
 import {queries as baseQueries} from '@testing-library/dom'
 
-import {setupBrowser} from '../src'
-import {WebdriverIOQueries} from '../src/types'
-
-declare global {
-  namespace WebdriverIO {
-    interface Browser extends WebdriverIOQueries {}
-    interface Element extends WebdriverIOQueries {}
-  }
-}
+import {setupBrowser} from '../../src'
 
 describe('setupBrowser', () => {
   it('resolves with all queries', () => {
@@ -49,7 +41,7 @@ describe('setupBrowser', () => {
 
     await browser.reloadSession()
     await browser.url(
-      `file:///${path.join(__dirname, '../test-app/index.html')}`,
+      `file:///${path.join(__dirname, '../../test-app/index.html')}`,
     )
 
     expect(await getByText('Page Heading')).toBeDefined()
