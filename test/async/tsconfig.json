@@ -1,0 +1,9 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "types": ["node", "webdriverio", "@wdio/mocha-framework"],
+    "baseUrl": "."
+  },
+  "exclude": [],
+  "include": ["**/*.ts"]
+}

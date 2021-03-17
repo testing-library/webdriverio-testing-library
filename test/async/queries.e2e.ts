@@ -1,4 +1,4 @@
-import {setupBrowser} from '../src'
+import {setupBrowser} from '../../src'
 
 describe('queries', () => {
   it('queryBy resolves with matching element', async () => {
