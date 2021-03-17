@@ -14,13 +14,11 @@ describe('configure', () => {
   })
 
   it('supports setting asyncUtilTimeout', async () => {
-    configure({asyncUtilTimeout: 0})
+    configure({asyncUtilTimeout: 3000})
 
     const {findByText} = setupBrowser(browser)
 
-    await expect(() =>
-      findByText('Unique Delayed Button Text'),
-    ).rejects.toThrowError()
+    expect(await findByText('Long Delayed Button Text')).toBeDefined();
   })
 
   it('supports setting computedStyleSupportsPseudoElements', async () => {
