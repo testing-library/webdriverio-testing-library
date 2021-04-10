@@ -1,7 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "types": ["node", "webdriverio", "@wdio/mocha-framework"],
+    "types": ["node", "jest", "webdriverio/async", "@wdio/mocha-framework"],
     "baseUrl": "."
   },
   "exclude": [],
