@@ -14,9 +14,16 @@ exports.config = {
   // Specify Test Files
   // ==================
   // Define which test specs should run. The pattern is relative to the directory
-  // from which `wdio` was called. Notice that, if you are calling `wdio` from an
-  // NPM script (see https://docs.npmjs.com/cli/run-script) then the current working
-  // directory is where your package.json resides, so `wdio` will be called from there.
+  // from which `wdio` was called.
+  //
+  // The specs are defined as an array of spec files (optionally using wildcards
+  // that will be expanded). The test for each spec file will be run in a separate
+  // worker process. In order to have a group of spec files run in the same worker
+  // process simply enclose them in an array within the specs array.
+  //
+  // If you are calling `wdio` from an NPM script (see https://docs.npmjs.com/cli/run-script),
+  // then the current working directory is where your `package.json` resides, so `wdio`
+  // will be called from there.
   //
   specs: ['./test/**/*.e2e.{js,ts}'],
   // Patterns to exclude.
@@ -114,7 +121,7 @@ exports.config = {
 
   // Framework you want to run your specs with.
   // The following are supported: Mocha, Jasmine, and Cucumber
-  // see also: https://webdriver.io/docs/frameworks.html
+  // see also: https://webdriver.io/docs/frameworks
   //
   // Make sure you have the wdio adapter package for the specific framework installed
   // before running any tests.
@@ -131,7 +138,7 @@ exports.config = {
   //
   // Test reporter for stdout.
   // The only one supported by default is 'dot'
-  // see also: https://webdriver.io/docs/dot-reporter.html
+  // see also: https://webdriver.io/docs/dot-reporter
   reporters: ['spec'],
 
   //
@@ -140,7 +147,6 @@ exports.config = {
   mochaOpts: {
     ui: 'bdd',
     timeout: 60000,
-    compiler: ['ts-node/register']
   },
   //
   // =====
@@ -184,9 +190,8 @@ exports.config = {
    * @param {Array.<String>} specs        List of spec file paths that are to be run
    * @param {Object}         browser      instance of created browser/device session
    */
-  before: function () {
-    require("@babel/register")({ extensions: ['.js', '.jsx', '.ts', '.tsx'] });
-  },
+  // before: function (capabilities, specs) {
+  // },
   /**
    * Runs before a WebdriverIO command gets executed.
    * @param {String} commandName hook command name

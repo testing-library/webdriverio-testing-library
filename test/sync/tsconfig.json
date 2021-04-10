@@ -1,7 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "types": ["node", "@wdio/sync", "@wdio/mocha-framework"]
+    "types": ["node", "jest", "webdriverio/sync", "@wdio/mocha-framework"]
   },
   "exclude": [],
   "include": ["**/*.ts"]
