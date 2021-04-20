@@ -1,6 +1,6 @@
 {
   "name": "@testing-library/webdriverio",
-  "version": "1.0.1-semantically-released",
+  "version": "1.0.0-semantically-released",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
