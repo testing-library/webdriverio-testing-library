@@ -54,7 +54,8 @@
   "release": {
     "branches": [
       "master",
-      "next"
+      "next",
+      {"name": "prerelease", "prerelease": true}
     ]
   },
   "publishConfig": {
