@@ -17,7 +17,7 @@
     "semantic-release": "semantic-release",
     "typecheck:async": "tsc -p ./test/async/tsconfig.json",
     "typecheck:sync": "tsc -p ./test/sync/tsconfig.json",
-    "typecheck:build": "npm run build -- --noEmit",
+    "typecheck:build": "npm run build:cjs -- --noEmit && npm run build:esm -- --noEmit",
     "typecheck": "npm-run-all typecheck:build typecheck:**"
   },
   "files": [
