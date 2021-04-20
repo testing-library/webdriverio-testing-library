@@ -4,9 +4,12 @@
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "module": "dist/esm/index.js",
   "scripts": {
     "add-contributor": "kcd-scripts contributors add",
-    "build": "tsc -p tsconfig.build.json",
+    "build": "npm-run-all build:cjs build:esm",
+    "build:cjs": "tsc -p tsconfig.build.json",
+    "build:esm": "tsc -p tsconfig.esm.json",
     "lint": "kcd-scripts lint",
     "test:unit": "kcd-scripts test --no-watch --config=jest.config.js",
     "validate": "kcd-scripts validate build,lint,test,typecheck",
