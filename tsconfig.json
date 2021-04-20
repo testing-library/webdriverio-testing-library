@@ -2,13 +2,13 @@
   "compilerOptions": {
     "baseUrl": ".",
     "target": "es2019",
-    "module": "commonjs",
     "strict": true,
     "esModuleInterop": true,
     "declaration": true,
     "outDir": "./dist",
     "skipLibCheck": true,
-    "noEmit": true
+    "noEmit": true,
+    "moduleResolution": "node"
   },
   "exclude": ["test"]
 }

@@ -2,11 +2,14 @@
   "name": "@testing-library/webdriverio",
   "version": "1.0.1-semantically-released",
   "description": "",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "add-contributor": "kcd-scripts contributors add",
-    "build": "tsc -p tsconfig.build.json",
+    "build": "tsc -p tsconfig.build.json $npm_config_flags && tsc -p tsconfig.build.esm.json $npm_config_flags",
     "lint": "kcd-scripts lint",
     "test:unit": "kcd-scripts test --no-watch --config=jest.config.js",
     "validate": "kcd-scripts validate build,lint,test,typecheck",
@@ -14,12 +17,9 @@
     "semantic-release": "semantic-release",
     "typecheck:async": "tsc -p ./test/async/tsconfig.json",
     "typecheck:sync": "tsc -p ./test/sync/tsconfig.json",
-    "typecheck:build": "npm run build -- --noEmit",
+    "typecheck:build": "npm run build --flags='--noEmit'",
     "typecheck": "npm-run-all typecheck:build typecheck:**"
   },
-  "files": [
-    "dist"
-  ],
   "keywords": [],
   "author": "",
   "license": "ISC",
