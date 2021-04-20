@@ -4,6 +4,7 @@ on:
     branches:
       - 'master'
       - 'next'
+      - 'prerelease'
   pull_request:
 
 jobs:
