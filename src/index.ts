@@ -127,11 +127,12 @@ function createQuery(element: ElementBase, queryName: string) {
   return async (...args: any[]) => {
     await injectDOMTestingLibrary(element)
 
-    const result = await element.executeAsync(executeQuery, ...[
+    const result = await element.executeAsync(
+      executeQuery,
       queryName,
       element,
       ...args.map(serializeArg),
-    ])
+    )
 
     if (typeof result === 'string') {
       throw new Error(result)
