@@ -71,7 +71,7 @@ function executeQuery(
   container: HTMLElement,
   ...args: any[]
 ) {
-  const done = args.pop() as (result: any) => void;
+  const done = args.pop() as (result: any) => void
 
   // @ts-ignore
   function deserializeObject(object) {
@@ -96,16 +96,20 @@ function executeQuery(
 
   const [matcher, options, waitForOptions] = args.map(deserializeArg)
 
-  Promise.resolve(
-    window.TestingLibraryDom[query](
-      container,
-      matcher,
-      options,
-      waitForOptions,
-    ),
-  )
-    .then(done)
-    .catch((e) => done(e.message))
+  try {
+    Promise.resolve(
+      window.TestingLibraryDom[query](
+        container,
+        matcher,
+        options,
+        waitForOptions,
+      ),
+    )
+      .then(done)
+      .catch((e) => done(e.message))
+  } catch (e) {
+    done(e.message)
+  }
 }
 
 /*
