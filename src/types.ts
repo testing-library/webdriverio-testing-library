@@ -20,10 +20,7 @@ export type ElementBase = {
     ...args: any[]
   ): Promise<T>
 
-  execute<T>(
-    script: string | ((...args: any[]) => T),
-    ...args: any[]
-  ): T
+  execute<T>(script: string | ((...args: any[]) => T), ...args: any[]): T
 
   executeAsync(script: string | ((...args: any[]) => void), ...args: any[]): any
 }

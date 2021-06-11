@@ -1,3 +1,5 @@
+import refetchElement from 'webdriverio/build/utils/refetchElement'
+
 import {setupBrowser} from '../../src'
 
 describe('queries', () => {
@@ -155,6 +157,16 @@ describe('queries', () => {
 
     await expect(getByText('Text that does not exist')).rejects.toThrowError(
       /Unable to find an element with the text/,
+    )
+  })
+
+  it('can refetch an element', async () => {
+    const {getByText} = setupBrowser(browser)
+
+    const button = await getByText('Unique Button Text')
+
+    expect(JSON.stringify(button)).toBe(
+      JSON.stringify(await refetchElement(button, 'click')),
     )
   })
 })
