@@ -3,6 +3,7 @@
 import path from 'path'
 import fs from 'fs'
 import {queries as baseQueries} from '@testing-library/dom'
+import 'simmerjs'
 
 import {
   BrowserBase,
