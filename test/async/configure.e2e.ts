@@ -47,7 +47,7 @@ describe('configure', () => {
     await expect(() =>
       getByTestId('button-that-should-not-use-testid'),
     ).rejects.toThrowError(
-      'TestingLibraryElementError: A better query is available',
+      'A better query is available',
     )
   })
 
