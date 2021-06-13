@@ -169,4 +169,16 @@ describe('queries', () => {
       JSON.stringify(await refetchElement(button, 'click')),
     )
   })
+
+  it('getAllBy works when Simmer cannot create a unique selector', async () => {
+    const {getAllByText} = setupBrowser(browser)
+
+    expect(await getAllByText(/High depth non-specific div/)).toHaveLength(2)
+  })
+
+  it('getBy works when Simmer cannot create a unique selector', async () => {
+    const {getByText} = setupBrowser(browser)
+
+    expect(await getByText('High depth non-specific div one')).not.toBeNull()
+  })
 })
