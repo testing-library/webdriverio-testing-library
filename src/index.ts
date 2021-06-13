@@ -85,15 +85,13 @@ function executeQuery(
 ) {
   const done = args.pop() as (result: any) => void
 
-  // @ts-ignore
-  function deserializeObject(object) {
+  function deserializeObject(object: object): object {
     return Object.entries(object)
       .map(([key, value]) => [key, deserializeArg(value)])
       .reduce((acc, [key, value]) => ({...acc, [key]: value}), {})
   }
 
-  // @ts-ignore
-  function deserializeArg(arg) {
+  function deserializeArg(arg: any) {
     if (arg && arg.RegExp) {
       return eval(arg.RegExp)
     }
@@ -108,30 +106,29 @@ function executeQuery(
 
   const [matcher, options, waitForOptions] = args.map(deserializeArg)
 
-  try {
-    Promise.resolve(
-      window.TestingLibraryDom[query](
+  ;(async () => {
+    let result: undefined | null | HTMLElement | HTMLElement[]
+    try {
+      result = await window.TestingLibraryDom[query](
         container,
         matcher,
         options,
         waitForOptions,
-      ),
-    )
-      .then((result) => {
-        if (!result) {
-          return done(null)
-        }
-        if (Array.isArray(result)) {
-          return done(
-            result.map((element) => ({selector: window.Simmer(element)})),
-          )
-        }
-        return done({selector: window.Simmer(result)})
-      })
-      .catch((e) => done(e.message))
-  } catch (e) {
-    done(e.message)
-  }
+      )
+    } catch (e) {
+      done(e.message)
+    }
+
+    if (!result) {
+      return done(null)
+    }
+
+    if (Array.isArray(result)) {
+      return done(result.map((element) => ({selector: window.Simmer(element)})))
+    }
+
+    return done({selector: window.Simmer(result)})
+  })()
 }
 
 function createQuery(element: ElementBase, queryName: string) {
