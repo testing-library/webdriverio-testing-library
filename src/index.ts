@@ -85,15 +85,13 @@ function executeQuery(
 ) {
   const done = args.pop() as (result: any) => void
 
-  // @ts-ignore
-  function deserializeObject(object) {
+  function deserializeObject(object: object): object {
     return Object.entries(object)
       .map(([key, value]) => [key, deserializeArg(value)])
       .reduce((acc, [key, value]) => ({...acc, [key]: value}), {})
   }
 
-  // @ts-ignore
-  function deserializeArg(arg) {
+  function deserializeArg(arg: any) {
     if (arg && arg.RegExp) {
       return eval(arg.RegExp)
     }
