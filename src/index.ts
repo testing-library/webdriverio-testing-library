@@ -119,6 +119,9 @@ function executeQuery(
   ;(async () => {
     let result: undefined | null | HTMLElement | HTMLElement[]
     try {
+      // Override RegExp to fix 'matcher instanceof RegExp' check on Firefox
+      window.RegExp = RegExp
+
       result = await window.TestingLibraryDom[query](
         container,
         matcher,
