@@ -45,7 +45,17 @@ async function injectDOMTestingLibrary(container: ElementBase) {
   })
 
   if (shouldInject.domTestingLibrary) {
-    await container.execute(DOM_TESTING_LIBRARY_UMD)
+    await container.execute(function (library) {
+      // add DOM Testing Library to page as a script tag to support Firefox
+      if (navigator.userAgent.indexOf('Firefox') !== -1) {
+        const script = document.createElement('script')
+        script.innerHTML = library
+        return document.head.append(script)
+      }
+
+      // eval library on other browsers
+      return eval(library)
+    }, DOM_TESTING_LIBRARY_UMD)
   }
 
   if (shouldInject.simmer) {
