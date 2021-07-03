@@ -15,12 +15,6 @@ jobs:
         os: [ubuntu-latest]
         node: [12, 14]
     steps:
-      - uses: nanasess/setup-chromedriver@master
-        with:
-          chromedriver-version: '79.0.3945.36'
-      - run: |
-          export DISPLAY=:99
-          sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 & # optional
       - uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node }}
