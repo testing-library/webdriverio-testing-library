@@ -4,7 +4,13 @@
     "./node_modules/kcd-scripts/eslint.js",
     "plugin:import/typescript"
   ],
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "project": "*/**/tsconfig.json"
+  },
   "plugins": ["@typescript-eslint"],
+  "ignorePatterns": "wdio.conf.js",
   "rules": {
     "babel/new-cap": "off",
     "func-names": "off",
