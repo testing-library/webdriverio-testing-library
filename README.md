@@ -6,7 +6,7 @@
     height="80"
     width="80"
     alt="spider"
-    src="https://raw.githubusercontent.com/testing-library/webdriverio-testing-library/master/other/spider.png"
+    src="https://raw.githubusercontent.com/testing-library/webdriverio-testing-library/main/other/spider.png"
   />
 </a>
 
@@ -28,7 +28,7 @@
 
 <div align="center">
 <a href="https://testingjavascript.com">
-<img width="500" alt="TestingJavaScript.com Learn the smart, efficient way to test any JavaScript application." src="https://raw.githubusercontent.com/kentcdodds/cypress-testing-library/master/other/testingjavascript.jpg" />
+<img width="500" alt="TestingJavaScript.com Learn the smart, efficient way to test any JavaScript application." src="https://raw.githubusercontent.com/kentcdodds/cypress-testing-library/main/other/testingjavascript.jpg" />
 </a>
 </div>
 
@@ -79,17 +79,17 @@ MIT
 [npm]: https://www.npmjs.com/
 [node]: https://nodejs.org
 [build-badge]: https://github.com/testing-library/webdriverio-testing-library/workflows/webdriverio-testing-library/badge.svg
-[build]: https://github.com/testing-library/webdriverio-testing-library/actions?query=branch%3Amaster+workflow%3Awebdriverio-testing-library
+[build]: https://github.com/testing-library/webdriverio-testing-library/actions?query=branch%3Amain+workflow%3Awebdriverio-testing-library
 [version-badge]: https://img.shields.io/npm/v/olivierwilkinson/webdriverio-testing-library.svg?style=flat-square
 [package]: https://www.npmjs.com/package/@testing-library/webdriverio
-[downloads-badge]:https://img.shields.io/npm/dm/@testing-library/webdriverio.svg?style=flat-square
+[downloads-badge]: https://img.shields.io/npm/dm/@testing-library/webdriverio.svg?style=flat-square
 [npmtrends]: http://www.npmtrends.com/@testing-library/webdriverio
 [license-badge]: https://img.shields.io/npm/l/@testing-library/webdriverio.svg?style=flat-square
-[license]: https://github.com/testing-library/webdriverio-testing-library/blob/master/LICENSE
+[license]: https://github.com/testing-library/webdriverio-testing-library/blob/main/LICENSE
 [prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
 [prs]: http://makeapullrequest.com
 [coc-badge]: https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square
-[coc]: https://github.com/testing-library/webdriverio-testing-library/blob/master/other/CODE_OF_CONDUCT.md
+[coc]: https://github.com/testing-library/webdriverio-testing-library/blob/main/other/CODE_OF_CONDUCT.md
 [dom-testing-library]: https://github.com/testing-library/dom-testing-library
 [webdriverio]: https://webdriver.io/
 [nightwatch-testing-library]: https://github.com/testing-library/nightwatch-testing-library
