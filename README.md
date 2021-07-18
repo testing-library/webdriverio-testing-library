@@ -80,7 +80,7 @@ MIT
 [node]: https://nodejs.org
 [build-badge]: https://github.com/testing-library/webdriverio-testing-library/workflows/webdriverio-testing-library/badge.svg
 [build]: https://github.com/testing-library/webdriverio-testing-library/actions?query=branch%3Amain+workflow%3Awebdriverio-testing-library
-[version-badge]: https://img.shields.io/npm/v/olivierwilkinson/webdriverio-testing-library.svg?style=flat-square
+[version-badge]: https://img.shields.io/npm/v/@testing-library/webdriverio.svg?style=flat-square
 [package]: https://www.npmjs.com/package/@testing-library/webdriverio
 [downloads-badge]: https://img.shields.io/npm/dm/@testing-library/webdriverio.svg?style=flat-square
 [npmtrends]: http://www.npmtrends.com/@testing-library/webdriverio
