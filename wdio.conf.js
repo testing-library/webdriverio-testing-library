@@ -1,5 +1,32 @@
 const path = require('path')
 
+const capabilities = [
+  {
+    maxInstances: 5,
+    browserName: 'chrome',
+    acceptInsecureCerts: true,
+    'goog:chromeOptions': {
+      args: process.env.CI ? ['--headless'] : [],
+    },
+  },
+  {
+    maxInstances: 5,
+    browserName: 'firefox',
+    acceptInsecureCerts: true,
+    'moz:firefoxOptions': {
+      args: process.env.CI ? ['--headless'] : [],
+    },
+  }
+];
+
+if (process.platform === 'win32') {
+  capabilities.push({
+    maxInstances: 5,
+    browserName: 'internet explorer',
+    acceptInsecureCerts: true,
+  })
+}
+
 exports.config = {
   //
   // ====================
@@ -9,6 +36,7 @@ exports.config = {
   // WebdriverIO allows it to run your tests in arbitrary locations (e.g. locally or
   // on a remote machine).
   runner: 'local',
+  path: '/wd/hub',
   //
   // ==================
   // Specify Test Files
@@ -52,24 +80,7 @@ exports.config = {
   // Sauce Labs platform configurator - a great tool to configure your capabilities:
   // https://docs.saucelabs.com/reference/platforms-configurator
   //
-  capabilities: [
-    {
-      maxInstances: 5,
-      browserName: 'chrome',
-      acceptInsecureCerts: true,
-      'goog:chromeOptions': {
-        args: process.env.CI ? ['--headless'] : [],
-      },
-    },
-    {
-      maxInstances: 5,
-      browserName: 'firefox',
-      acceptInsecureCerts: true,
-      'moz:firefoxOptions': {
-        args: process.env.CI ? ['--headless'] : [],
-      },
-    },
-  ],
+  capabilities,
   //
   // ===================
   // Test Configurations

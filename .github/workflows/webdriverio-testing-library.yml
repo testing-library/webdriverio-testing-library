@@ -4,6 +4,7 @@ on:
     branches:
       - 'main'
       - 'next'
+      - 'fix-internet-explorer-11'
   pull_request:
 
 jobs:
@@ -12,7 +13,7 @@ jobs:
     runs-on: '${{ matrix.os }}'
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os: [windows-latest]
         node: [12, 14]
     steps:
       - uses: actions/setup-node@v2

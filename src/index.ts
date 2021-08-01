@@ -9,6 +9,7 @@ import {
   waitForOptions as WaitForOptions,
 } from '@testing-library/dom'
 import 'simmerjs'
+import {__awaiter} from 'tslib'
 
 import {BrowserBase, ElementBase} from './wdio-types'
 import {
@@ -26,6 +27,7 @@ declare global {
     TestingLibraryDom: typeof baseQueries & {
       configure: typeof configure
     }
+    __awaiter: typeof __awaiter
   }
 }
 
@@ -42,6 +44,8 @@ const SIMMERJS = fs
   .readFileSync(require.resolve('simmerjs/dist/simmer.js'))
   .toString()
 
+const TSLIB = fs.readFileSync(require.resolve('tslib/tslib.js')).toString()
+
 let _config: Partial<Config>
 
 async function injectDOMTestingLibrary(container: ElementBase) {
@@ -49,6 +53,7 @@ async function injectDOMTestingLibrary(container: ElementBase) {
     return {
       domTestingLibrary: !window.TestingLibraryDom,
       simmer: !window.Simmer,
+      tslib: !window.__awaiter,
     }
   })
 
@@ -68,6 +73,10 @@ async function injectDOMTestingLibrary(container: ElementBase) {
 
   if (shouldInject.simmer) {
     await container.execute(SIMMERJS)
+  }
+
+  if (shouldInject.tslib) {
+    await container.execute(TSLIB)
   }
 
   await container.execute(function (config: Config) {
