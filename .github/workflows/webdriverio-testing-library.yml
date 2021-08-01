@@ -4,6 +4,7 @@ on:
     branches:
       - 'main'
       - 'next'
+      - 'check-latest-browsers'
   pull_request:
 
 jobs:
