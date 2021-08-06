@@ -4,6 +4,7 @@ on:
     branches:
       - 'main'
       - 'next'
+      - 'test-cucumber-support'
   pull_request:
 
 jobs:
