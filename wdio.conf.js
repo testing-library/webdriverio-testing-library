@@ -25,7 +25,10 @@ exports.config = {
   // then the current working directory is where your `package.json` resides, so `wdio`
   // will be called from there.
   //
-  specs: ['./test/**/*.e2e.{js,ts}'],
+  specs: ['./test/cucumber/test.feature'],
+  cucumberOpts: {
+    require: ['./test/cucumber/steps.js'],
+  },
   // Patterns to exclude.
   exclude: [
     // 'path/to/excluded/files'
@@ -125,7 +128,7 @@ exports.config = {
   //
   // Make sure you have the wdio adapter package for the specific framework installed
   // before running any tests.
-  framework: 'mocha',
+  framework: 'cucumber',
   //
   // The number of times to retry the entire specfile when it fails as a whole
   // specFileRetries: 1,
@@ -208,7 +211,7 @@ exports.config = {
   /**
    * Function to be executed before a test (in Mocha/Jasmine) starts.
    */
-  beforeTest: async function () {
+  before: async function () {
     await browser.url(
       `file:///${path.join(__dirname, './test-app/index.html')}`,
     )

@@ -12,7 +12,7 @@
     "build:esm": "tsc -p tsconfig.esm.json",
     "lint": "kcd-scripts lint",
     "test:unit": "kcd-scripts test --no-watch --config=jest.config.js",
-    "validate": "kcd-scripts validate build,lint,test,typecheck",
+    "validate": "kcd-scripts validate test",
     "test": "wdio wdio.conf.js",
     "semantic-release": "semantic-release",
     "typecheck:async": "tsc -p ./test/async/tsconfig.json",
@@ -35,10 +35,12 @@
     "webdriverio": "*"
   },
   "devDependencies": {
+    "@cucumber/cucumber": "^7.3.1",
     "@types/simmerjs": "^0.5.1",
     "@typescript-eslint/eslint-plugin": "^4.14.0",
     "@typescript-eslint/parser": "^4.14.0",
     "@wdio/cli": "^7.3.1",
+    "@wdio/cucumber-framework": "^7.9.0",
     "@wdio/local-runner": "^7.3.1",
     "@wdio/mocha-framework": "^7.3.1",
     "@wdio/selenium-standalone-service": "^7.7.3",
