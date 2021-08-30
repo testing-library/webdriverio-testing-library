@@ -15,10 +15,17 @@ declare global {
   }
 }
 
+export type $ = (
+  selector: any,
+) =>
+  | ChainablePromiseElementBase<Promise<WebdriverIO.Element>>
+  | Promise<WebdriverIO.Element>
+  | WebdriverIO.Element
+
+export type ChainablePromiseElementBase<T> = Promise<T> & {$: $}
+
 export type ElementBase = {
-  $(
-    selector: object | string,
-  ): Promise<WebdriverIO.Element> | WebdriverIO.Element
+  $: $
 
   execute<T>(
     script: string | ((...args: any[]) => T),
@@ -31,9 +38,7 @@ export type ElementBase = {
 }
 
 export type BrowserBase = {
-  $(
-    selector: object | string,
-  ): Promise<WebdriverIO.Element> | WebdriverIO.Element
+  $: $
 
   addCommand<T extends boolean>(
     queryName: string,
