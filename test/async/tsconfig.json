@@ -1,8 +1,9 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "types": ["node", "jest", "webdriverio/async", "@wdio/mocha-framework"],
-    "baseUrl": "."
+    "types": ["node", "webdriverio/async", "@wdio/mocha-framework", "expect-webdriverio"],
+    "baseUrl": ".",
+    "skipLibCheck": false
   },
   "exclude": [],
   "include": ["**/*.ts"]

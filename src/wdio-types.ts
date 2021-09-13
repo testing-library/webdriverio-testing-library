@@ -11,7 +11,7 @@ eslint-disable @typescript-eslint/no-explicit-any,
 
 declare global {
   namespace WebdriverIO {
-    interface Element extends ElementBase {}
+    interface Element {}
   }
 }
 

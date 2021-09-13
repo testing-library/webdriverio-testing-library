@@ -246,7 +246,7 @@ function setupBrowser(browser: BrowserBase): WebdriverIOQueries {
       ...args: Parameters<WebdriverIOQueries[QueryName]>
     ) => {
       const body = await browser.$('body')
-      return within(body)[queryName](...(args as any[]))
+      return within(body as ElementBase)[queryName](...(args as any[]))
     }
 
     // add query to response queries
