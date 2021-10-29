@@ -37,6 +37,7 @@ const DOM_TESTING_LIBRARY_UMD_PATH = path.join(
 const DOM_TESTING_LIBRARY_UMD = fs
   .readFileSync(DOM_TESTING_LIBRARY_UMD_PATH)
   .toString()
+  .replace('define.amd', 'false') // Never inject DTL using AMD define function
 
 const SIMMERJS = fs
   .readFileSync(require.resolve('simmerjs/dist/simmer.js'))
