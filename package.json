@@ -32,7 +32,7 @@
   "license": "ISC",
   "dependencies": {
     "@babel/runtime": "^7.4.3",
-    "@testing-library/dom": "^7.0.4"
+    "@testing-library/dom": "^8.17.1"
   },
   "peerDependencies": {
     "webdriverio": "*"
