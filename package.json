@@ -32,14 +32,12 @@
   "license": "ISC",
   "dependencies": {
     "@babel/runtime": "^7.4.3",
-    "@testing-library/dom": "^7.0.4",
-    "simmerjs": "^0.5.6"
+    "@testing-library/dom": "^7.0.4"
   },
   "peerDependencies": {
     "webdriverio": "*"
   },
   "devDependencies": {
-    "@types/simmerjs": "^0.5.1",
     "@typescript-eslint/eslint-plugin": "^4.14.0",
     "@typescript-eslint/parser": "^4.14.0",
     "@wdio/cli": "^7.12.1",
