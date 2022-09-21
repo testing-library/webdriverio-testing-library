@@ -21,6 +21,14 @@
         content: 'Named by pseudo element';
       }
     </style>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@17/umd/react.production.min.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"
+    ></script>
     <script>
       define = function (){}
       define.amd = {}
@@ -139,12 +147,17 @@
         </div>
       </div>
     </section>
+
+    <div id="react-root"></div>
+
     <!-- Prettier unindents the script tag below -->
     <script>
       document
         .querySelector('[data-testid="image-with-random-alt-tag"]')
         .setAttribute('alt', 'Image Random Alt Text ' + Math.random())
     </script>
+
+    <!-- utils -->
     <script>
       function createButton(text) {
         const button = document.createElement('button')
@@ -161,6 +174,26 @@
       setTimeout(function () {
         createButton('Long Delayed Button Text')
       }, 2000)
+    </script>
+
+    <!-- React app -->
+    <script>
+      const Root = () => {
+        const [titleKey, setTitleKey] = React.useState('initial')
+        return React.createElement(
+          React.StrictMode,
+          undefined,
+          React.createElement('section', undefined, [
+            React.createElement('h2', {key: titleKey, id: 'react-title'}, 'React'),
+            React.createElement('button', { onClick: () => setTitleKey('updated') }, 'Recreate React Title'),
+          ]),
+        )
+      }
+
+      ReactDOM.render(
+        React.createElement(Root),
+        document.getElementById('react-root'),
+      )
     </script>
   </body>
 </html>
