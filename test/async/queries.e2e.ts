@@ -183,4 +183,24 @@ describe('queries', () => {
 
     expect(await getByText('High depth non-specific div one')).not.toBeNull()
   })
+
+  // This tests fails when using Puppeteer, but passes when using other services
+  it.skip('findByText works for elements in production React app', async () => {
+    const {findByText} = setupBrowser(browser)
+
+    expect(await findByText('React')).not.toBeNull()
+  })
+
+  // This tests fails when using Puppeteer, but passes when using other services
+  it.skip('refetching works when React key changes and element recreated', async () => {
+    const {findByText} = setupBrowser(browser)
+
+    const title = await findByText('React')
+    const recreateTitleButton = await findByText('Recreate React Title')
+    await recreateTitleButton.click()
+
+    const refetchedTitle = await refetchElement(title, '')
+    expect(refetchedTitle).not.toBeNull()
+    expect(await refetchedTitle.getAttribute('id')).toEqual('react-title')
+  })
 })
