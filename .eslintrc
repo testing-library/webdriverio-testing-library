@@ -10,7 +10,7 @@
     "project": "*/**/tsconfig.json"
   },
   "plugins": ["@typescript-eslint"],
-  "ignorePatterns": "wdio.conf.js",
+  "ignorePatterns": "wdio.conf.*",
   "rules": {
     "babel/new-cap": "off",
     "func-names": "off",
