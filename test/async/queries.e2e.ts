@@ -164,9 +164,11 @@ describe('queries', () => {
     const {getByText} = setupBrowser(browser)
 
     const button = await getByText('Unique Button Text')
+    const refetchedButton = await refetchElement(button, 'click')
 
-    expect(JSON.stringify(button)).toBe(
-      JSON.stringify(await refetchElement(button, 'click')),
+    expect(refetchedButton).not.toBeNull()
+    expect(await refetchedButton.getText()).toBe(
+      'Unique Button Text',
     )
   })
 
