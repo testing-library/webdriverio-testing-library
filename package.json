@@ -13,7 +13,11 @@
     "lint": "kcd-scripts lint",
     "test:unit": "kcd-scripts test --no-watch --config=jest.config.js",
     "validate": "kcd-scripts validate build,lint,test,typecheck",
-    "test": "wdio wdio.conf.js",
+    "test:puppeteer": "wdio wdio.conf.js",
+    "test:selenium-standalone": "wdio wdio.conf.selenium-standalone.js",
+    "test:chromedriver": "wdio wdio.conf.chromedriver.js",
+    "test:geckodriver": "wdio wdio.conf.geckodriver.js",
+    "test": "npm-run-all test:puppeteer test:selenium-standalone test:chromedriver test:geckodriver",
     "semantic-release": "semantic-release",
     "typecheck:async": "tsc -p ./test/async/tsconfig.json",
     "typecheck:sync": "tsc -p ./test/sync/tsconfig.json",
@@ -49,7 +53,11 @@
     "npm-run-all": "^4.1.5",
     "semantic-release": "^17.0.2",
     "ts-node": "^9.1.1",
-    "typescript": "^4.4.2"
+    "typescript": "^4.4.2",
+    "chromedriver": "^105.0.1",
+    "geckodriver": "^3.0.2",
+    "wdio-chromedriver-service": "^7.3.2",
+    "wdio-geckodriver-service": "^2.0.0"
   },
   "repository": {
     "type": "git",
