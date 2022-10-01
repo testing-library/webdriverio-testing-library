@@ -6,6 +6,10 @@ import {
   SelectorMatcherOptions,
   MatcherOptions,
 } from '@testing-library/dom'
+import {SelectorsBase} from './wdio-types'
+
+export type Queries = typeof queries
+export type QueryName = keyof Queries
 
 export type Config = Pick<
   BaseConfig,
@@ -16,40 +20,64 @@ export type Config = Pick<
   | 'throwSuggestions'
 >
 
-export type WebdriverIOQueryReturnType<T> = T extends Promise<HTMLElement>
-  ? WebdriverIO.Element
-  : T extends HTMLElement
-  ? WebdriverIO.Element
-  : T extends Promise<HTMLElement[]>
-  ? WebdriverIO.Element[]
-  : T extends HTMLElement[]
-  ? WebdriverIO.Element[]
-  : T extends null
-  ? null
-  : never
+export type WebdriverIOQueryReturnType<Element, ElementArray, T> =
+  T extends Promise<HTMLElement>
+    ? Element
+    : T extends HTMLElement
+    ? Element
+    : T extends Promise<HTMLElement[]>
+    ? ElementArray
+    : T extends HTMLElement[]
+    ? ElementArray
+    : T extends null
+    ? null
+    : never
 
-export type WebdriverIOBoundFunction<T> = (
+export type WebdriverIOBoundFunction<Element, ElementArray, T> = (
   ...params: Parameters<BoundFunctionBase<T>>
-) => Promise<WebdriverIOQueryReturnType<ReturnType<BoundFunctionBase<T>>>>
-
-export type WebdriverIOBoundFunctionSync<T> = (
-  ...params: Parameters<BoundFunctionBase<T>>
-) => WebdriverIOQueryReturnType<ReturnType<BoundFunctionBase<T>>>
-
-export type WebdriverIOBoundFunctions<T> = {
-  [P in keyof T]: WebdriverIOBoundFunction<T[P]>
-}
-
-export type WebdriverIOBoundFunctionsSync<T> = {
-  [P in keyof T]: WebdriverIOBoundFunctionSync<T[P]>
-}
-
-export type WebdriverIOQueries = WebdriverIOBoundFunctions<typeof queries>
-export type WebdriverIOQueriesSync = WebdriverIOBoundFunctionsSync<
-  typeof queries
+) => Promise<
+  WebdriverIOQueryReturnType<
+    Element,
+    ElementArray,
+    ReturnType<BoundFunctionBase<T>>
+  >
 >
 
-export type QueryName = keyof typeof queries
+export type WebdriverIOBoundFunctionSync<Element, ElementArray, T> = (
+  ...params: Parameters<BoundFunctionBase<T>>
+) => WebdriverIOQueryReturnType<
+  Element,
+  ElementArray,
+  ReturnType<BoundFunctionBase<T>>
+>
+
+export type WebdriverIOQueries = {
+  [P in keyof Queries]: WebdriverIOBoundFunction<
+    WebdriverIO.Element,
+    WebdriverIO.Element[],
+    Queries[P]
+  >
+}
+
+export type WebdriverIOQueriesSync = {
+  [P in keyof Queries]: WebdriverIOBoundFunctionSync<
+    WebdriverIO.Element,
+    WebdriverIO.Element[],
+    Queries[P]
+  >
+}
+
+export type WebdriverIOQueriesChainable<
+  Container extends SelectorsBase | undefined,
+> = {
+  [P in keyof Queries as `${string & P}$`]: Container extends SelectorsBase
+    ? WebdriverIOBoundFunctionSync<
+        ReturnType<Container['$']>,
+        ReturnType<Container['$$']>,
+        Queries[P]
+      >
+    : undefined
+}
 
 export type ObjectQueryArg =
   | MatcherOptions
@@ -57,12 +85,7 @@ export type ObjectQueryArg =
   | SelectorMatcherOptions
   | waitForOptions
 
-export type QueryArg =
-  | ObjectQueryArg
-  | RegExp
-  | number
-  | string
-  | undefined
+export type QueryArg = ObjectQueryArg | RegExp | number | string | undefined
 
 export type SerializedObject = {
   serialized: 'object'

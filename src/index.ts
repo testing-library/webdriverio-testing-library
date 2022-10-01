@@ -16,6 +16,7 @@ import {
   Config,
   QueryName,
   WebdriverIOQueries,
+  WebdriverIOQueriesChainable,
   ObjectQueryArg,
   SerializedObject,
   SerializedArg,
@@ -224,8 +225,8 @@ eslint-disable
 @typescript-eslint/no-explicit-any,
 @typescript-eslint/no-unsafe-argument
 */
-function setupBrowser(browser: BrowserBase): WebdriverIOQueries {
-  const queries: {[key: string]: WebdriverIOQueries[QueryName]} = {}
+function setupBrowser<Browser extends BrowserBase>(browser: Browser): WebdriverIOQueries {
+  const queries: {[key: string | number | symbol]: WebdriverIOQueries[QueryName]} = {}
 
   Object.keys(baseQueries).forEach((key) => {
     const queryName = key as QueryName
@@ -240,10 +241,8 @@ function setupBrowser(browser: BrowserBase): WebdriverIOQueries {
     // add query to response queries
     queries[queryName] = query as WebdriverIOQueries[QueryName]
 
-    // add query to BrowserObject
+    // add query to BrowserObject and Elements
     browser.addCommand(queryName, query as WebdriverIOQueries[QueryName])
-
-    // add query to Elements
     browser.addCommand(
       queryName,
       function (this, ...args) {
@@ -251,9 +250,19 @@ function setupBrowser(browser: BrowserBase): WebdriverIOQueries {
       },
       true,
     )
+
+    // add chainable query to BrowserObject and Elements
+    browser.addCommand(`${queryName}$`, query as WebdriverIOQueriesChainable<Browser>[`${QueryName}$`])
+    browser.addCommand(
+      `${queryName}$`,
+      function (this, ...args) {
+        return within(this)[queryName](...args)
+      },
+      true,
+    )
   })
 
-  return queries as WebdriverIOQueries
+  return queries as unknown as WebdriverIOQueries
 }
 /*
 eslint-enable
