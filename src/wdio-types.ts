@@ -22,10 +22,22 @@ export type $ = (
   | Promise<WebdriverIO.Element>
   | WebdriverIO.Element
 
-export type ChainablePromiseElementBase<T> = Promise<T> & {$: $}
+export type $$ = (
+  selector: any,
+) =>
+  | ChainablePromiseArrayBase<Promise<WebdriverIO.Element>>
+  | Promise<WebdriverIO.Element[]>
+  | WebdriverIO.Element[]
 
-export type ElementBase = {
+export type ChainablePromiseElementBase<T> = Promise<T> & {$: $}
+export type ChainablePromiseArrayBase<T> = Promise<T>
+
+export type SelectorsBase = {
   $: $
+  $$: $$
+}
+
+export type ElementBase = SelectorsBase & {
   parent: {
     execute<T>(
       script: string | ((...args: any[]) => T),
@@ -38,9 +50,7 @@ export type ElementBase = {
   }
 }
 
-export type BrowserBase = {
-  $: $
-
+export type BrowserBase = SelectorsBase & {
   addCommand<T extends boolean>(
     queryName: string,
     commandFn: (
