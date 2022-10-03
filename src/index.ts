@@ -46,7 +46,7 @@ const SIMMERJS = fs
 let _config: Partial<Config>
 
 async function injectDOMTestingLibrary(container: ElementBase) {
-  const shouldInject = await container.execute(function () {
+  const shouldInject = await container.parent.execute(function () {
     return {
       domTestingLibrary: !window.TestingLibraryDom,
       simmer: !window.Simmer,
@@ -54,7 +54,7 @@ async function injectDOMTestingLibrary(container: ElementBase) {
   })
 
   if (shouldInject.domTestingLibrary) {
-    await container.execute(function (library: string) {
+    await container.parent.execute(function (library: string) {
       // add DOM Testing Library to page as a script tag to support Firefox
       if (navigator.userAgent.includes('Firefox')) {
         const script = document.createElement('script')
@@ -68,10 +68,10 @@ async function injectDOMTestingLibrary(container: ElementBase) {
   }
 
   if (shouldInject.simmer) {
-    await container.execute(SIMMERJS)
+    await container.parent.execute(SIMMERJS)
   }
 
-  await container.execute(function (config: Config) {
+  await container.parent.execute(function (config: Config) {
     window.TestingLibraryDom.configure(config)
   }, _config)
 }
@@ -199,7 +199,7 @@ function createQuery(container: ElementBase, queryName: QueryName) {
     await injectDOMTestingLibrary(container)
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const result: SerializedQueryResult = await container.executeAsync(
+    const result: SerializedQueryResult = await container.parent.executeAsync(
       executeQuery,
       queryName,
       container,
