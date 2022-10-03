@@ -26,15 +26,16 @@ export type ChainablePromiseElementBase<T> = Promise<T> & {$: $}
 
 export type ElementBase = {
   $: $
-
-  execute<T>(
-    script: string | ((...args: any[]) => T),
-    ...args: any[]
-  ): Promise<T>
-
-  execute<T>(script: string | ((...args: any[]) => T), ...args: any[]): T
-
-  executeAsync(script: string | ((...args: any[]) => void), ...args: any[]): any
+  parent: {
+    execute<T>(
+      script: string | ((...args: any[]) => T),
+      ...args: any[]
+    ): Promise<T>
+  
+    execute<T>(script: string | ((...args: any[]) => T), ...args: any[]): T
+  
+    executeAsync(script: string | ((...args: any[]) => void), ...args: any[]): any
+  }
 }
 
 export type BrowserBase = {
