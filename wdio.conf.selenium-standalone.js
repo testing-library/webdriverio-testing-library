@@ -14,6 +14,14 @@ exports.config = {
     },
   ],
   services: [
-    ['selenium-standalone', {drivers: {firefox: true, chrome: true}}]
+    [
+      'selenium-standalone',
+      {
+        drivers: {
+          firefox: true,
+          chrome: process.env.CHROMEDRIVER_VERSION || true,
+        },
+      },
+    ],
   ],
 }

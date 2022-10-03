@@ -20,9 +20,13 @@ jobs:
           node-version: ${{ matrix.node }}
       - uses: actions/checkout@v2
       - run: npm install
-      - run: npm run validate
+      - name: npm run validate
+        run: |
+          export CHROMEDRIVER_VERSION="$(chromedriver --version | awk '{print $2}')"
+          npm run validate
         env:
           CI: true
+
   release:
     runs-on: ubuntu-latest
     needs: test
