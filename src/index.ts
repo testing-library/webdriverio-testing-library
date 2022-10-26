@@ -8,6 +8,7 @@ import {
   queries as baseQueries,
   waitForOptions as WaitForOptions,
 } from '@testing-library/dom'
+import 'simmerjs'
 
 import {BrowserBase, ElementBase} from './wdio-types'
 import {
@@ -23,8 +24,7 @@ import {
 declare global {
   interface Window {
     TestingLibraryDom: typeof baseQueries & {
-      configure: typeof configure,
-      idSequence: number | null
+      configure: typeof configure
     }
   }
 }
@@ -39,12 +39,17 @@ const DOM_TESTING_LIBRARY_UMD = fs
   .toString()
   .replace('define.amd', 'false') // Never inject DTL using AMD define function
 
+const SIMMERJS = fs
+  .readFileSync(require.resolve('simmerjs/dist/simmer.js'))
+  .toString()
+
 let _config: Partial<Config>
 
 async function injectDOMTestingLibrary(container: ElementBase) {
   const shouldInject = await container.parent.execute(function () {
     return {
-      domTestingLibrary: !window.TestingLibraryDom
+      domTestingLibrary: !window.TestingLibraryDom,
+      simmer: !window.Simmer,
     }
   })
 
@@ -60,6 +65,10 @@ async function injectDOMTestingLibrary(container: ElementBase) {
       // eval library on other browsers
       return eval(library)
     }, DOM_TESTING_LIBRARY_UMD)
+  }
+
+  if (shouldInject.simmer) {
+    await container.parent.execute(SIMMERJS)
   }
 
   await container.parent.execute(function (config: Config) {
@@ -145,17 +154,24 @@ function executeQuery(
       return done(null)
     }
 
-    const elementIdAttributeName = 'data-wdio-testing-lib-element-id';
-    const makeSelectorResult = (element: HTMLElement) => {
-      let elementId = element.getAttribute(elementIdAttributeName);
-      if (elementId == null) {
-        const idSequence = window.TestingLibraryDom.idSequence ?? 10000;
-        window.TestingLibraryDom.idSequence = idSequence + 1;
-        elementId = `${idSequence}`;
+    function makeSelectorResult(element: HTMLElement) {
+      // use simmer if possible to allow element refetching by position, otherwise
+      // situations such as a React key change causes refetching to fail.
+      const selector = window.Simmer(element)
+      if (selector) return {selector}
+
+      // use generated element id as selector if Simmer fails
+      const elementIdAttributeName = 'data-wdio-testing-lib-element-id'
+      let elementId = element.getAttribute(elementIdAttributeName)
+
+      // if id doesn't already exist create one and add it to element
+      if (!elementId) {
+        elementId = (Math.abs(Math.random()) * 1000000000000).toFixed(0)
         element.setAttribute(elementIdAttributeName, elementId)
       }
-      return ({selector: `[${elementIdAttributeName}="${elementId}"]`})
-    };
+
+      return {selector:`[${elementIdAttributeName}="${elementId}"]`}
+    }
 
     if (Array.isArray(result)) {
       return done(result.map(makeSelectorResult));
@@ -163,13 +179,6 @@ function executeQuery(
 
     return done(makeSelectorResult(result));
   })()
-}
-
-async function findElement(
-    container: ElementBase,
-    result: { selector: string },
-): Promise<WebdriverIO.Element> {
-  return container.$(result.selector)
 }
 
 function createQuery(container: ElementBase, queryName: QueryName) {
@@ -193,10 +202,10 @@ function createQuery(container: ElementBase, queryName: QueryName) {
     }
 
     if (Array.isArray(result)) {
-      return Promise.all(result.map(findElement.bind(null, container)))
+      return Promise.all(result.map(({ selector }) => container.$(selector)))
     }
 
-    return findElement(container, result)
+    return container.$(result.selector)
   }
 }
 
