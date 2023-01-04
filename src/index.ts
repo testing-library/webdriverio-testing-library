@@ -10,7 +10,7 @@ import {
 } from '@testing-library/dom'
 import 'simmerjs'
 
-import {BrowserBase, ElementBase} from './wdio-types'
+import {BaseWithExecute, BrowserBase, ElementBase} from './wdio-types'
 import {
   QueryArg,
   Config,
@@ -46,8 +46,21 @@ const SIMMERJS = fs
 
 let _config: Partial<Config>
 
+function isContainerWithExecute(container: ElementBase | BaseWithExecute): container is BaseWithExecute {
+  return (container as { execute?: unknown }).execute != null;
+}
+
+function findContainerWithExecute(container: ElementBase): BaseWithExecute {
+  let curContainer: ElementBase | BaseWithExecute = container.parent;
+  while (!isContainerWithExecute(curContainer)) {
+    curContainer = curContainer.parent;
+  }
+  return curContainer;
+}
+
 async function injectDOMTestingLibrary(container: ElementBase) {
-  const shouldInject = await container.parent.execute(function () {
+  const containerWithExecute = findContainerWithExecute(container);
+  const shouldInject = await containerWithExecute.execute(function () {
     return {
       domTestingLibrary: !window.TestingLibraryDom,
       simmer: !window.Simmer,
@@ -55,7 +68,7 @@ async function injectDOMTestingLibrary(container: ElementBase) {
   })
 
   if (shouldInject.domTestingLibrary) {
-    await container.parent.execute(function (library: string) {
+    await containerWithExecute.execute(function (library: string) {
       // add DOM Testing Library to page as a script tag to support Firefox
       if (navigator.userAgent.includes('Firefox')) {
         const script = document.createElement('script')
@@ -69,10 +82,10 @@ async function injectDOMTestingLibrary(container: ElementBase) {
   }
 
   if (shouldInject.simmer) {
-    await container.parent.execute(SIMMERJS)
+    await containerWithExecute.execute(SIMMERJS)
   }
 
-  await container.parent.execute(function (config: Config) {
+  await containerWithExecute.execute(function (config: Config) {
     window.TestingLibraryDom.configure(config)
   }, _config)
 }
@@ -187,7 +200,7 @@ function createQuery(container: ElementBase, queryName: QueryName) {
     await injectDOMTestingLibrary(container)
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const result: SerializedQueryResult = await container.parent.executeAsync(
+    const result: SerializedQueryResult = await findContainerWithExecute(container).executeAsync(
       executeQuery,
       queryName,
       container,

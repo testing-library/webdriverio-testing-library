@@ -37,17 +37,19 @@ export type SelectorsBase = {
   $$: $$
 }
 
-export type ElementBase = SelectorsBase & {
-  parent: {
-    execute<T>(
+export type BaseWithExecute = {
+  execute<T>(
       script: string | ((...args: any[]) => T),
       ...args: any[]
-    ): Promise<T>
-  
-    execute<T>(script: string | ((...args: any[]) => T), ...args: any[]): T
-  
-    executeAsync(script: string | ((...args: any[]) => void), ...args: any[]): any
-  }
+  ): Promise<T>
+
+  execute<T>(script: string | ((...args: any[]) => T), ...args: any[]): T
+
+  executeAsync(script: string | ((...args: any[]) => void), ...args: any[]): any
+}
+
+export type ElementBase = SelectorsBase & {
+  parent: ElementBase | BaseWithExecute
 }
 
 export type BrowserBase = SelectorsBase & {
