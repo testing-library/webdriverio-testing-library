@@ -22,7 +22,8 @@
     "typecheck:async": "tsc -p ./test/async/tsconfig.json",
     "typecheck:sync": "tsc -p ./test/sync/tsconfig.json",
     "typecheck:build": "npm run build:cjs -- --noEmit && npm run build:esm -- --noEmit",
-    "typecheck": "npm-run-all typecheck:build typecheck:**"
+    "typecheck": "npm-run-all typecheck:build typecheck:**",
+    "prepare": "selenium-standalone install --drivers.chrome.version=${CHROMEDRIVER_VERSION:-latest} --drivers.gecko.version=${GECKODRIVER_VERSION:-latest}"
   },
   "files": [
     "dist"
@@ -49,13 +50,12 @@
     "@wdio/spec-reporter": "^7.19.0",
     "@wdio/sync": "^7.19.0",
     "eslint": "^7.6.0",
+    "geckodriver": "^3.2.0",
     "kcd-scripts": "^11.1.0",
     "npm-run-all": "^4.1.5",
     "semantic-release": "^17.0.2",
     "ts-node": "^9.1.1",
     "typescript": "^4.4.2",
-    "chromedriver": "^105.0.1",
-    "geckodriver": "^3.0.2",
     "wdio-chromedriver-service": "^7.3.2",
     "wdio-geckodriver-service": "^2.0.0"
   },
