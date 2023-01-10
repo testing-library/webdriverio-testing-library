@@ -18,7 +18,7 @@ exports.config = {
       'selenium-standalone',
       {
         drivers: {
-          firefox: true,
+          firefox: process.env.GECKODRIVER_VERSION || true,
           chrome: process.env.CHROMEDRIVER_VERSION || true,
         },
       },

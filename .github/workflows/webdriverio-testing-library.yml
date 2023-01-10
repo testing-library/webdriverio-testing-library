@@ -19,10 +19,10 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
       - uses: actions/checkout@v2
-      - run: npm install
-      - name: npm run validate
+      - name: npm install and validate
         run: |
           export CHROMEDRIVER_VERSION="$(chromedriver --version | awk '{print $2}')"
+          npm install
           npm run validate
         env:
           CI: true
