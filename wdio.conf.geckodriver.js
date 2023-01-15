@@ -22,7 +22,6 @@ exports.config = {
   ],
   capabilities: [
     {
-      maxInstances: 5,
       browserName: 'firefox',
       acceptInsecureCerts: true,
       'moz:firefoxOptions': {
