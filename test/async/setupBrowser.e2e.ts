@@ -36,7 +36,8 @@ describe('setupBrowser', () => {
     expect(await getByText('Page Heading')).toBeDefined()
   })
 
-  it('still works after session reload', async () => {
+  // QUARANTINED:- this test sometimes hangs in actions https://github.com/testing-library/webdriverio-testing-library/actions/runs/3934657982/jobs/6729701157
+  it.skip('still works after session reload', async () => {
     const {getByText} = setupBrowser(browser)
 
     await browser.reloadSession()

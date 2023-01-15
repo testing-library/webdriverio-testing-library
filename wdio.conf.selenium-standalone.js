@@ -5,11 +5,10 @@ exports.config = {
   capabilities: [
     ...baseConfig.config.capabilities,
     {
-      maxInstances: 5,
       browserName: 'firefox',
       acceptInsecureCerts: true,
       'moz:firefoxOptions': {
-        args: process.env.CI ? ['--headless'] : [],
+        args: process.env.CI ? ['-headless'] : [],
       },
     },
   ],
@@ -17,6 +16,7 @@ exports.config = {
     [
       'selenium-standalone',
       {
+        skipSeleniumInstall: true,
         drivers: {
           firefox: process.env.GECKODRIVER_VERSION || true,
           chrome: process.env.CHROMEDRIVER_VERSION || true,
